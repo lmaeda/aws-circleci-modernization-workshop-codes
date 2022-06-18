@@ -114,6 +114,8 @@ jobs:
           path: ./terraform/ecs
 workflows:
   build:
+    context:
+      - snyk_demo
     jobs:
       - run_tests
       - scan_app
