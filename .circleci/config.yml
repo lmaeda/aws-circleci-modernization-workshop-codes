@@ -114,23 +114,35 @@ jobs:
           path: ./terraform/ecs
 workflows:
   build:
-    context:
-      - snyk_demo
     jobs:
       - run_tests
+          context:
+            - snyk_demo
       - scan_app
+          context:
+            - snyk_demo
       - build_docker_image
+          context:
+            - snyk_demo
       - deploy_aws_ecs:
+          context:
+            - snyk_demo
           requires:
             - build_docker_image          
       - smoketest_deployment:
+          context:
+            - snyk_demo
           requires:
             - deploy_aws_ecs
       - approve_destroy:
+          context:
+            - snyk_demo
           type: approval
           requires:
             - smoketest_deployment
       - destroy_aws_ecs:
+          context:
+            - snyk_demo
           requires:
             - approve_destroy
 
