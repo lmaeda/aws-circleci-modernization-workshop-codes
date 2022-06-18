@@ -115,13 +115,13 @@ jobs:
 workflows:
   build:
     jobs:
-      - run_tests
+      - run_tests:
           context:
             - snyk_demo
-      - scan_app
+      - scan_app:
           context:
             - snyk_demo
-      - build_docker_image
+      - build_docker_image:
           context:
             - snyk_demo
       - deploy_aws_ecs:
