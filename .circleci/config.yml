@@ -57,7 +57,7 @@ jobs:
           organization: demo_high
       - run:
           name: Snyk Container 
-          command: snyk container test --print-deps --org=demo_high --project-name=$CIRCLE_PROJECT_REPONAME --app-vulns --nested-jars-depth 8 $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:0.1.<< pipeline.number >>
+          command: snyk container test --print-deps --org=demo_high --project-name=$CIRCLE_PROJECT_REPONAME --app-vulns --nested-jars-depth=8 $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:0.1.<< pipeline.number >>
       - docker/push:
           image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
           tag: 0.1.<< pipeline.number >>
