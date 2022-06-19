@@ -39,11 +39,11 @@ jobs:
       - run:
           name: Snyk Scans
           command: |
-          snyk code test --org=demo_high  || true
-          echo '' && echo '' && echo ''
-          snyk test --org=demo_high --all-projects --remote-repo-url=$CIRCLE_PROJECT_REPONAME || true
-          echo '' && echo '' && echo ''
-          snyk iac test --org=demo_high || true
+            snyk code test --org=demo_high  || true
+            echo '' && echo '' && echo ''
+            snyk test --org=demo_high --all-projects --remote-repo-url=$CIRCLE_PROJECT_REPONAME || true
+            echo '' && echo '' && echo ''
+            snyk iac test --org=demo_high || true
   build_docker_image:
     machine:
       image: ubuntu-2004:202101-01
