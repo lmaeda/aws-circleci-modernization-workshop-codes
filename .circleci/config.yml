@@ -36,10 +36,14 @@ jobs:
           fail-on-issues: false
           monitor-on-build: false
           organization: demo_high
-      - run: |
+      - run:
+          name: Snyk Scans
+          command: |
           snyk code test --org=demo_high  || true
+          echo '' && echo '' && echo ''
           snyk test --org=demo_high --all-projects --remote-repo-url=$CIRCLE_PROJECT_REPONAME || true
-          snyk iac test || true
+          echo '' && echo '' && echo ''
+          snyk iac test --org=demo_high || true
   build_docker_image:
     machine:
       image: ubuntu-2004:202101-01
@@ -50,6 +54,13 @@ jobs:
       - docker/build:
           image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
           tag: 0.1.<< pipeline.number >>
+      - snyk/scan:
+          fail-on-issues: false
+          monitor-on-build: false
+          organization: demo_high
+      - run:
+          name: Snyk Container 
+          command: snyk container test --print-deps --org=demo_high --project-name=$CIRCLE_PROJECT_REPONAME --app-vulns --nested-jars-depth 8 $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME:0.1.<< pipeline.number >>
       - docker/push:
           image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
           tag: 0.1.<< pipeline.number >>
