@@ -37,7 +37,7 @@ jobs:
           monitor-on-build: false
       - run:
           name: Snyk Code - scan first party code
-          command: snyk code test --org=demo_high
+          command: snyk code test --org=demo_high --json | snyk-to-html -o snyk-code-report.html
   build_docker_image:
     machine:
       image: ubuntu-2004:202101-01
